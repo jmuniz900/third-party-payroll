@@ -2,6 +2,7 @@
 #include <iostream>
 #include <vector>
 #include <fstream>
+#include <iomanip>
 
 using namespace std;
 
@@ -71,15 +72,79 @@ void printHighestPaid(vector<Person> &employeeN){
   }
 }
 void separateAndSave(vector<Person> &employeeN, vector<string> &companyN){
-  
+  string companyName;
+  fstream file;
+  string name;
+  int id;
+  string company;
+  float total;
+  float intelTotal;
+  float raytheonTotal;
+  float healthtechTotal;
+  float douglasTotal;
+  float boeingTotal;
+
+  for(int i = 0; i < employeeN.size(); i++){
+    companyName = companyN[i] + ".txt";
+    file.open(companyName, fstream::app);
+  //  cout << companyName << endl;
+        if(file.is_open()){
+          name = employeeN[i].fullName();
+          id = employeeN[i].getEmployeeId();
+          company = employeeN[i].getCompanyName();
+          total = employeeN[i].totalPay();
+
+        //  cout << name << " " << id << " " << company << " " << total << endl;
+         file << name << " " << id << " " << company << " $" << total << endl;
+        }
+        else{
+          cout << "Error: Could not open file!" << endl;
+        }
+        if(company == "Intel"){
+          intelTotal += total;
+        }
+        if(company == "Raytheon"){
+          raytheonTotal += total;
+        }
+        if(company == "HealthTech"){
+          healthtechTotal += total;
+        }
+        if(company == "Douglas"){
+          douglasTotal += total;
+        }
+        if(company == "Boeing"){
+          boeingTotal += total;
+        }
+          file.close();
+        }
+    file.open("Intel.txt", fstream::app);
+    file << "Total $" << intelTotal << endl;
+    file.close();
+
+    file.open("Raytheon.txt", fstream::app);
+    file << "Total $" << raytheonTotal << endl;
+    file.close();
+
+    file.open("HealthTech.txt", fstream::app);
+    file << "Total $" << healthtechTotal << endl;
+    file.close();
+
+    file.open("Douglas.txt", fstream::app);
+    file << "Total $" << douglasTotal << endl;
+    file.close();
+
+    file.open("Boeing.txt", fstream::app);
+    file << "Total $" << boeingTotal << endl;
+    file.close();
 }
 
 int main(){
-  Person employiis;
+  //Person employiis;
   vector<Person> employees;
   vector<string> companyNames;
 
   readData(employees);
   getCompanies(employees, companyNames);
   printHighestPaid(employees);
+  separateAndSave(employees, companyNames);
 }
