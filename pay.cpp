@@ -48,20 +48,9 @@ void readData(vector<Person> &employeeN){
 }
 
 void getCompanies(vector<Person> &employeeN, vector<string> &companyN){
-  int counter = 0;
-  companyN.push_back(employeeN[0].getCompanyName())
 
   for(int i = 0; i < employeeN.size(); i++){
-      // companyN.push_back(employeeN[i].getCompanyName());
-      while(counter < companyN.size()){
-        if(employeeN[i].getCompanyName() != companyN[counter]){
-          companyN.push_back(employeeN[i].getCompanyName())
-        }
-        counter++;
-      }
-    }
-    for(int j = 0; j < companyN.size(); j++){
-      cout << companyN[j] << endl;
+       companyN.push_back(employeeN[i].getCompanyName());
     }
 }
 void printHighestPaid(vector<Person> &employeeN){
@@ -151,7 +140,7 @@ void separateAndSave(vector<Person> &employeeN, vector<string> &companyN){
 }
 
 int main(){
-  //Person employiis;
+
   vector<Person> employees;
   vector<string> companyNames;
 
