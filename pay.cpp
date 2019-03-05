@@ -14,6 +14,8 @@ void printHighestPaid(vector<Person> &employeeN);
 void separateAndSave(vector<Person> &employeeN, vector<string> &companyN);
 
 void readData(vector<Person> &employeeN){
+
+  //Declared some variables to be able to pass it to the employee vector.
   fstream file;
   string fiName;
   string laName;
@@ -22,14 +24,17 @@ void readData(vector<Person> &employeeN){
   float hoursW;
   float pay;
 
+  //Create a temporary Person class pointer to push_back into the employee vector.
   Person *employeePtr = new Person;
 
+  //Input the data
   file.open("input.txt");
   if(file.is_open()){
     while(!file.eof()){
       file >> fiName >> laName >> employID;
       file >> compName >> hoursW >> pay;
 
+      //Probably inefficient
       employeePtr->setFirstName(fiName);
       employeePtr->setLastName(laName);
       employeePtr->setEmployeeId(employID);
@@ -37,29 +42,40 @@ void readData(vector<Person> &employeeN){
       employeePtr->setHoursWorked(hoursW);
       employeePtr->setPayRate(pay);
 
+      //push_back every employee one by one in the file.
       employeeN.push_back(*employeePtr);
-    //  cout << employeePtr->getFirstName() << endl;
+
     }
   }
+  //If file wasn't opened, come to this else.
   else{
     cout << "Error: Could not open file!" << endl;
   }
+  //Deallocate the employeePtr.
+  delete employeePtr;
   file.close();
 }
 
 void getCompanies(vector<Person> &employeeN, vector<string> &companyN){
 
+  //Pushed all 16 of the employee companies. Must be a better way to
+  //uniquely get the companies.
   for(int i = 0; i < employeeN.size(); i++){
        companyN.push_back(employeeN[i].getCompanyName());
     }
 }
 void printHighestPaid(vector<Person> &employeeN){
+  //Created a temporary variable that will hold the largest amount.
   float tmp = 0;
+  //For loop will check every single employees wage, and add the
+  //biggest amount found to the temporary variable.
   for(int i = 0; i < employeeN.size(); i++){
     if(tmp < employeeN[i].totalPay()){
       tmp = employeeN[i].totalPay();
     }
   }
+  //This loop will check which employee got paid the highest and print
+  //out their information.
   for(int j = 0; j < employeeN.size(); j++){
     if(tmp == employeeN[j].totalPay()){
       cout << "Highest paid: " << employeeN[j].fullName();
@@ -79,12 +95,15 @@ void separateAndSave(vector<Person> &employeeN, vector<string> &companyN){
   int id;
   string company;
   float total;
+
   float intelTotal;
   float raytheonTotal;
   float healthtechTotal;
   float douglasTotal;
   float boeingTotal;
 
+  //Since the company name vector isn't what I wanted, there probably is
+  //a more efficent way to write this part of the code.
   for(int i = 0; i < employeeN.size(); i++){
     companyName = companyN[i] + ".txt";
     file.open(companyName, fstream::app);
@@ -141,11 +160,24 @@ void separateAndSave(vector<Person> &employeeN, vector<string> &companyN){
 
 int main(){
 
+  //Vector that holds all employees of the class type
   vector<Person> employees;
+
+  //Vector that only holds strings. All company names.
   vector<string> companyNames;
 
+  //Function that reads in data from a file.
   readData(employees);
+
+  //Function that adds company names from employees vector to companyNames vector.
+  //Should take a look at how to check if it's already in the vector because
+  //I added all 16 of the companies in the vector instead of just 5 unique companies.
   getCompanies(employees, companyNames);
+
+  //Function that prints the highest paid employee. Should be correct.
   printHighestPaid(employees);
+
+  //Separates the employees by company name and puts them in their respective
+  //file.
   separateAndSave(employees, companyNames);
 }
