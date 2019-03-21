@@ -43,7 +43,7 @@ void readData(vector<Person> &employeeN){
       employeePtr->setPayRate(pay);
 
       //push_back every employee one by one in the file.
-      employeeN.push_back(*employeePtr);
+      employeeN.emplace_back(*employeePtr);
 
     }
   }
@@ -63,6 +63,16 @@ void getCompanies(vector<Person> &employeeN, vector<string> &companyN){
   for(int i = 0; i < employeeN.size(); i++){
        companyN.push_back(employeeN[i].getCompanyName());
     }
+/*    for(int j = 0; j < 4; j++){
+    companyN.push_back(employeeN[j].getCompanyName());
+  }
+    companyN.push_back(employeeN[8].getCompanyName());
+
+    cout << "This vector contains: \n";
+
+      for(int i = 0; i < companyN.size(); i++){
+      cout << companyN[i] << endl;
+    } */
 }
 void printHighestPaid(vector<Person> &employeeN){
   //Created a temporary variable that will hold the largest amount.

@@ -2,6 +2,10 @@
 
 using namespace std;
 
+Person::Person(string firstName, string lastName, float  payRate, float
+hoursWorked){
+  
+}
 Person::Person(){
   firstName = "John";
   lastName = "Smith";

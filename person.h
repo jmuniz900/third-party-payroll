@@ -15,6 +15,8 @@ private:
 
 public:
     Person();
+    Person(string fName, string lName, float  pRate, float
+hrsWorked);
     void   setFirstName(string fName);
     string getFirstName();
     void   setLastName(string lName);
